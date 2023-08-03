@@ -1,11 +1,38 @@
 
-
+#' Check whether you can map your data to a set of colours and guess the appropriate group based on overlap
+#'
+#' @param groups 
+#'
+#' @return The name of the group that is the best match for your labels
+#' @export
+#'
+#' @examples
+#' 
+#' my_groups = c("ABC","GCB","U")
+#' check_colours(my_groups)
+#' 
+check_colours = function(groups){
+  best_match = ""
+  most_sharing = 0
+  for(g in unique_groups){
+    this_set = dplyr::filter(full_codes,group==g) %>% pull(Name)
+    num_shared = sum(groups %in% this_set)
+    if(num_shared>most_sharing){
+      most_sharing = num_shared
+      best_match = g
+    }
+  }
+  if(most_sharing< length(groups)){
+    message("For the best match, not every value has a matching colour!")
+  }
+  return(best_match)
+}
 
 #' Get a set of standard colours as hex codes
 #'
 #' @param col_category 
 #'
-#' @return
+#' @return Depending on return_format, a vector or list or data frame
 #' @export
 #'
 #' @examples
@@ -37,7 +64,7 @@ get_colours = function(col_category,
 
 #' Show all the colour codes in a table
 #'
-#' @return
+#' @return Nothing
 #' @export
 #'
 #' @examples

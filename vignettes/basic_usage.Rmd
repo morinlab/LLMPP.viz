@@ -1,0 +1,98 @@
+---
+title: "Basic usage of our standardized colours"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{basic_usage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(LLMPP.viz)
+library(dplyr)
+library(kableExtra)
+library(ggplot2)
+```
+
+# Peek at what's available
+
+```{r}
+summarise_colours()
+```
+
+# Narrow the options down
+
+```{r}
+
+summarise_colours(col_category = "subgroup")
+
+```
+
+# Preview them
+
+```{r}
+
+show_colours(col_category = "subgroup")
+
+```
+
+
+# Preview just one group
+
+```{r}
+
+show_colours(col_group = "LymphGen")
+
+```
+
+# Retrieve and put them to use
+
+In our experience, the most common use case for named colours is using ggplot2 with manual scales. This requires a named vector with names that map to each of the groups you will be setting in your aesthetic. Here's a basic example:
+
+```{r}
+
+lymphgen_vec = get_colours(col_group = "LymphGen")
+ggplot(data.frame(x=names(lymphgen_vec)),aes(x=sample(100,length(lymphgen_vec)),
+                                             y=sample(100,length(lymphgen_vec)),
+                                             colour=x)) + 
+  geom_point(size=3) + 
+  scale_color_manual(values=lymphgen_vec) + 
+  theme_minimal()
+
+```
+
+# Skipping the extra steps
+
+If you are certain your data already maps to colours in the full set, there is no need to subset. You can simply provide the unfiltered output of `get_colours` to ggplot2:
+
+```{r}
+every_colour = get_colours()
+length(every_colour)
+
+ggplot(data.frame(x=names(lymphgen_vec)),
+       aes(x=sample(100,length(lymphgen_vec)),
+                                             y=sample(100,length(lymphgen_vec)),
+                                             colour=x)) + 
+  geom_point(size=3) + 
+  scale_color_manual(values=every_colour) + 
+  theme_minimal()
+
+```
+
+
+# See all the colours available
+
+It may be easier for you to decide what filters to apply if you view the entire set of colours together. There are currently `r get_colours() %>% length()` distinct colours, some with multiple aliases. They can all be visualized together by running `show_colours` without any parameters.
+
+```{r}
+
+show_colours()
+
+```
