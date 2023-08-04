@@ -8,7 +8,7 @@ For HTML versions of these tables with embedded colours, see [this page](https:/
 
 ### General B-NHL subgroups of (or related to) DLBCL
 
-b_cell_nhl_cols=get_colours("b-cell")
+b_cell_nhl_cols=get_colours(col_group="pathology")
 
 <img src="b-cell.png" width="200">
 
@@ -35,37 +35,22 @@ b_cell_nhl_cols=get_colours("b-cell")
 ## Cell of origin and gene expression subgroups
 
 ```r
-coo_cols=get_colours("coo")
+coo_cols=get_colours(col_group="coo")
 ```
 
 | COO         | hex     |
 |-------------|---------|
-| DHITsig+    | #D62828 |
-| DHITsig-IND | #003049 |
-| DHITsig-    | #B1740F |
+| DZsig+    | #D62828 |
+| DZsig-IND | #003049 |
+| DZsig-    | #B1740F |
 | GCB         | #F58F20 |
 | ABC         | #05ACEF |
 | UNCLASS     | #05631E |
 
-## Genetic classes from Chapuy et al
-
-```r
-harvard_cols=get_colours("harvard")
-```
-
-| Harvard | hex     |
-|---------|---------|
-| C3      | #721F0F |
-| C4      | #C41230 |
-| C5      | #3B5FAC |
-| C1      | #7F3293 |
-| C2      | #5b6d8a |
-| C0      | #ACADAF |
-
 ## LymphGen classes from Schmitz et al with updates described in Wright et al
 
 ```r
-lymphgen_cols=get_colours("lymphgen")
+lymphgen_cols=get_colours(col_group="LymphGen")
 ```
 
 | LymphGen | hex     |
